@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">TimeForPill</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
     <string name="done">Done</string>
+    <string name="selectall">Select all</string>
+
     <!-- listview menu -->
     <string name="default_lv_menu_remove">Remove ...</string>
     <string name="default_lv_menu_new">Add new</string>

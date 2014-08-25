@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">SharedResources</string>
-
-    <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
-    <string name="done">Done</string>
-    <string name="selectall">Select all</string>
-
-</resources>

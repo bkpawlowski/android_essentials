@@ -1,1 +1,1 @@
-include ':SupportLibrary', ':SharedResources'
+include ':SupportLibrary'
