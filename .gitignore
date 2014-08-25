@@ -1,4 +1,6 @@
+<<<<<<< HEAD
 .idea
+bin
 gradle
 .gradle
 gradle.properties
@@ -10,3 +12,6 @@ gen
 local.properties
 *.dex
 *.apk
+*.ap_
+*.class
+
