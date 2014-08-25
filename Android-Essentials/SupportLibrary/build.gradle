@@ -1,12 +1,12 @@
 apply plugin: 'android-library'
 
 android {
-    compileSdkVersion 18
+    compileSdkVersion 15
     buildToolsVersion '19.1.0'
 
     defaultConfig {
-        minSdkVersion 11
-        targetSdkVersion 16
+        minSdkVersion 15
+        targetSdkVersion 15
         versionCode 1
         versionName "1.0"
     }
@@ -19,7 +19,7 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:+'
+    compile 'com.android.support:appcompat-v7:20.+'
     compile 'com.android.support:support-v4:+'
     compile project(':SharedResources')
 }
