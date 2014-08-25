@@ -1,0 +1,12 @@
+.idea
+gradle
+.gradle
+gradle.properties
+build
+classes
+gen
+*.iml
+*.bat
+local.properties
+*.dex
+*.apk

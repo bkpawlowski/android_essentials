@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TimeForPill</string>
+    <string name="done">Done</string>
+    <!-- listview menu -->
+    <string name="default_lv_menu_remove">Remove ...</string>
+    <string name="default_lv_menu_new">Add new</string>
+    <string name="default_lv_menu_order">Order by</string>
+</resources>

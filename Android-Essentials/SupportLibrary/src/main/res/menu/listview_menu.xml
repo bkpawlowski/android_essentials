@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/action_listview_menu"
+          android:title=""
+          android:icon="@drawable/abc_ic_menu_moreoverflow_normal_holo_dark"
+          android:showAsAction="ifRoom">
+        <menu>
+            <item android:id="@+id/action_listview_menu_new"
+                android:title="@string/default_lv_menu_new"
+                android:showAsAction="always"
+                android:orderInCategory="1"/>
+            <item android:id="@+id/action_listview_menu_remove"
+                android:title="@string/default_lv_menu_remove"
+                android:showAsAction="always"
+                android:orderInCategory="2"/>
+            <item android:id="@+id/action_listview_menu_order"
+                android:title="@string/default_lv_menu_order"
+                android:showAsAction="always"
+                android:orderInCategory="2"/>
+        </menu>
+    </item>
+</menu>
