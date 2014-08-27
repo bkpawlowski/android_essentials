@@ -6,15 +6,15 @@ import java.util.List;
 
 import pl.pawlowski.bartek.supplib.GUI.utilities.SelectableListViewAdapter;
 import pl.pawlowski.bartek.supplib.GUI.utilities.SelectableListViewItemViewHolder;
-import pl.pawlowski.bartek.supplib.persistence.DTO.AbstractDTO;
+import pl.pawlowski.bartek.supplib.persistence.DTO.AbstractEntity;
 
 
 /**
  * Created by Bartosz Garet Pawlowski on 27.03.14.
  */
-public abstract class PersistenceListViewAdapter<DTOItemClass extends AbstractDTO> extends SelectableListViewAdapter<DTOItemClass, SelectableListViewItemViewHolder> {
+public abstract class PersistenceListViewAdapter<EntityClass extends AbstractEntity> extends SelectableListViewAdapter<EntityClass, SelectableListViewItemViewHolder> {
 
-    public PersistenceListViewAdapter(Context context, List<DTOItemClass> items) {
+    public PersistenceListViewAdapter(Context context, List<EntityClass> items) {
         super(context, items);
     }
 
@@ -32,7 +32,7 @@ public abstract class PersistenceListViewAdapter<DTOItemClass extends AbstractDT
             System.out.println("Unable to remove item: position to remove = "+itemPosition+" item collection size = "+ itemList.size());
             return null;
         }else{
-            DTOItemClass removedItem = itemList.remove(itemPosition);
+            EntityClass removedItem = itemList.remove(itemPosition);
             notifyDataSetChanged();
 
             return removedItem.getId();
@@ -44,7 +44,7 @@ public abstract class PersistenceListViewAdapter<DTOItemClass extends AbstractDT
      * @param itemId - id of the item to be removed
      */
     public void removeItemById(Integer itemId){
-        for (DTOItemClass item : itemList){
+        for (EntityClass item : itemList){
             if(item.getId() == itemId){
                 itemList.remove(item);
 
@@ -65,9 +65,9 @@ public abstract class PersistenceListViewAdapter<DTOItemClass extends AbstractDT
         notifyDataSetChanged();
     }
 
-    public DTOItemClass getItemById(Integer itemId){
-        DTOItemClass foundItem = null;
-        for (DTOItemClass item : itemList){
+    public EntityClass getItemById(Integer itemId){
+        EntityClass foundItem = null;
+        for (EntityClass item : itemList){
             if(item.getId() == itemId){
                 foundItem = item;
                 break;

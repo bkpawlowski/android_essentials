@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.HashMap;
 
 import pl.pawlowski.bartek.supplib.persistence.DAO.AbstractDAO;
+import pl.pawlowski.bartek.supplib.persistence.DAO.old_AbstractDAO;
+import pl.pawlowski.bartek.supplib.persistence.DTO.AbstractEntity;
 
 
 /**
@@ -14,7 +16,7 @@ public class DAOManager {
 
     private static DAOManager instance;
 
-    private HashMap<String, AbstractDAO<?>> registeredDAOs;
+    private HashMap<Class<AbstractEntity>, AbstractDAO<? extends AbstractEntity, Integer>> registeredDAOs;
 
     public static DAOManager getInstance(){
         if(instance == null){
@@ -25,24 +27,18 @@ public class DAOManager {
     }
 
     private DAOManager(){
-        registeredDAOs = new HashMap<String, AbstractDAO<?>>();
+        registeredDAOs = new HashMap<Class<AbstractEntity>, AbstractDAO<? extends AbstractEntity, Integer>>();
     }
 
-    public AbstractDAO<?> getDAO(String daoIdentifier){
-        return registeredDAOs.get(daoIdentifier);
+    public AbstractDAO<? extends AbstractEntity, Integer> getDAO(Class<AbstractEntity> daoEntityClass){
+        return registeredDAOs.get(daoEntityClass);
     }
 
-    public void registerDAO(String daoIdentifier, AbstractDAO<?> dao){
-        registeredDAOs.put(daoIdentifier, dao);
+    public void registerDAO(Class<AbstractEntity> daoEntityClass, AbstractDAO<? extends AbstractEntity, Integer> dao){
+        registeredDAOs.put(daoEntityClass, dao);
     }
 
     public void unregisterDAO(String daoIdentifier){
         registeredDAOs.remove(daoIdentifier);
-    }
-
-    public void updateDAOsDatabaseReference(SQLiteDatabase database){
-        for (AbstractDAO<?> dao : registeredDAOs.values()){
-            dao.setDatabaseReference(database);
-        }
     }
 }

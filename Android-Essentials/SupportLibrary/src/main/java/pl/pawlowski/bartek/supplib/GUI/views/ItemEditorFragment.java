@@ -7,12 +7,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import pl.pawlowski.bartek.supplib.R;
-import pl.pawlowski.bartek.supplib.persistence.DTO.AbstractDTO;
+import pl.pawlowski.bartek.supplib.persistence.DTO.old_AbstractDTO;
 
 /**
  * Created by Bartosz Garet Pawlowski on 24.03.14.
  */
-public abstract class ItemEditorFragment<AdapterItemClass extends AbstractDTO> extends ActionBarMenuFragment {
+public abstract class ItemEditorFragment<AdapterItemClass extends old_AbstractDTO> extends ActionBarMenuFragment {
 
     public static final String PASSED_ITEM_KEY = "-2547-x";
 

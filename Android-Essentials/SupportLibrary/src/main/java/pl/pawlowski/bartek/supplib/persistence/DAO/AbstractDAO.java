@@ -1,36 +1,26 @@
 package pl.pawlowski.bartek.supplib.persistence.DAO;
 
-import android.database.sqlite.SQLiteDatabase;
+import com.j256.ormlite.dao.BaseDaoImpl;
+import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.DatabaseTableConfig;
 
-import java.util.List;
+import java.sql.SQLException;
 
-import pl.pawlowski.bartek.supplib.persistence.DTO.AbstractDTO;
+import pl.pawlowski.bartek.supplib.persistence.DTO.AbstractEntity;
 
 /**
- * @Author Bartosz Garet Pawłowski on 15.03.14.
+ * Created by Bartek Garet Pawlowski on 2014-08-27.
  */
-public abstract class AbstractDAO<DTOClass extends AbstractDTO> {
-    protected SQLiteDatabase database;
-
-    protected AbstractDAO(){
-
+public class AbstractDAO<EntityClass extends AbstractEntity, PrimaryKeyClass> extends BaseDaoImpl<EntityClass, PrimaryKeyClass> {
+    protected AbstractDAO(Class<EntityClass> dataClass) throws SQLException {
+        super(dataClass);
     }
 
-    public void setDatabaseReference(SQLiteDatabase database){
-        this.database = database;
+    protected AbstractDAO(ConnectionSource connectionSource, Class<EntityClass> dataClass) throws SQLException {
+        super(connectionSource, dataClass);
     }
 
-    public abstract void createNew(DTOClass item);
-
-    public abstract void delete(DTOClass item);
-
-    public abstract void deleteItems(List<DTOClass> items);
-
-    public abstract void delete(Integer itemId);
-
-    public abstract void deleteItemsById(List<Integer> items);
-
-    public abstract void update(DTOClass item);
-
-    public abstract List<DTOClass> getAllRecords();
+    protected AbstractDAO(ConnectionSource connectionSource, DatabaseTableConfig<EntityClass> tableConfig) throws SQLException {
+        super(connectionSource, tableConfig);
+    }
 }

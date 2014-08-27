@@ -5,9 +5,9 @@ import android.os.Parcelable;
 /**
  * Created by Bartosz Garet Pawlowski on 27.03.14.
  */
-public abstract class AbstractDTO implements Identifiable, Parcelable {
+public abstract class old_AbstractDTO implements Identifiable, Parcelable {
 
-    protected AbstractDTO() {
+    protected old_AbstractDTO() {
 
     }
 
@@ -15,7 +15,7 @@ public abstract class AbstractDTO implements Identifiable, Parcelable {
 
     protected Object obj;
 
-    public abstract void merge(AbstractDTO dto);
+    public abstract void merge(old_AbstractDTO dto);
 
     public Integer getId() {
         return id;

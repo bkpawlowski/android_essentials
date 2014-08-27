@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import pl.pawlowski.bartek.supplib.persistence.DTO.AbstractDTO;
+import pl.pawlowski.bartek.supplib.persistence.DTO.AbstractEntity;
 
 
 /**
@@ -18,7 +18,7 @@ import pl.pawlowski.bartek.supplib.persistence.DTO.AbstractDTO;
  * by adding the feature of handling items selection by checkboxes
  */
 public abstract class SelectableListViewAdapter<
-                    AdapterItemClass extends AbstractDTO,
+                    AdapterItemClass extends AbstractEntity,
                     ViewHolderClass extends SelectableListViewItemViewHolder>
         extends SimpleListViewAdapter<AdapterItemClass, ViewHolderClass> {
 

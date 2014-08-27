@@ -14,12 +14,16 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 import pl.pawlowski.bartek.supplib.R;
 import pl.pawlowski.bartek.supplib.persistence.DAO.AbstractDAO;
-import pl.pawlowski.bartek.supplib.persistence.DTO.AbstractDTO;
+import pl.pawlowski.bartek.supplib.persistence.DAO.old_AbstractDAO;
+import pl.pawlowski.bartek.supplib.persistence.DTO.AbstractEntity;
 import pl.pawlowski.bartek.supplib.persistence.utilities.DAOManager;
+import pl.pawlowski.bartek.supplib.persistence.utilities.old_DAOManager;
 import pl.pawlowski.bartek.supplib.persistence.utilities.PersistenceListViewAdapter;
 
 /**
@@ -29,16 +33,16 @@ import pl.pawlowski.bartek.supplib.persistence.utilities.PersistenceListViewAdap
  * handles default actions on listview items
  *
  */
-public abstract class PersistenceListViewFragment<AdapterItemClass extends AbstractDTO> extends ActionBarMenuFragment<AdapterItemClass> {
+public abstract class PersistenceListViewFragment<AdapterItemClass extends AbstractEntity> extends ActionBarMenuFragment<AdapterItemClass> {
     private static final String EDITOR_FRAGMENT_TAG = "111--x-23423-ed-fragment-tag";
     private static final String SELECTION_MODE_KEY = "--ssk";
     private static final String SELECTED_ITEMS_KEY = "i--ssk";
 
-    protected AbstractDAO<AdapterItemClass> dao;
-
     protected PersistenceListViewAdapter<AdapterItemClass> listViewAdapter;
 
     protected ItemEditorFragment itemEditorFragment;
+
+    protected AbstractDAO<AdapterItemClass, Integer> dao;
 
     protected Class<? extends ItemEditorFragment> editorFragmentClass;
 
@@ -49,14 +53,14 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
     private boolean selectionModeEnabled;
 
     protected PersistenceListViewFragment(){
-        dao = (AbstractDAO<AdapterItemClass>) DAOManager.getInstance().getDAO(getDAOIdentifier());
+        dao = (AbstractDAO<AdapterItemClass, Integer>) DAOManager.getInstance().getDAO(getEntityClass());
         listViewAdapter = getAdapter();
         listViewAdapter.setItemList(getRecordsFromDatabase());
         editorFragmentClass = getEditorFragmentClass();
         selectionModeEnabled = true;
     }
 
-    protected abstract String getDAOIdentifier();
+    protected abstract Class<AbstractEntity> getEntityClass();
 
     protected abstract PersistenceListViewAdapter getAdapter();
 
@@ -67,7 +71,12 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
      *      List of records to be displayed in this fragment
      */
     protected List<AdapterItemClass> getRecordsFromDatabase(){
-        return dao.getAllRecords();
+        try {
+            return dao.queryForAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new LinkedList<AdapterItemClass>();
+        }
     }
 
     /**
@@ -183,9 +192,9 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
         ActionBar actionBar = getActivity().getActionBar();
         if(selectionMode){
             actionBar.setCustomView(selectionActionBarView);
-            actionBar.setDisplayOptions(getCustomActionBarDisplayOptions());
+//            actionBar.setDisplayOptions(getCustomActionBarDisplayOptions());
         }else{
-            actionBar.setDisplayOptions(getDefaultActionBarDisplayOptions());
+//            actionBar.setDisplayOptions(getDefaultActionBarDisplayOptions());
         }
 
         //niewidoczne jesli jestesmy w trybie wybierania
@@ -229,8 +238,14 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
      * @param itemId - id of the item to be removed and persists it
      */
     protected void removeItem(Integer itemId){
-        dao.delete(itemId);
-        listViewAdapter.removeItemById(itemId);
+        try {
+            dao.deleteById(itemId);
+            listViewAdapter.removeItemById(itemId);
+        } catch (SQLException e) {
+
+            //TODO komunikat na maske do aktywnosci o bledzie
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -238,8 +253,13 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
      * @param itemIds - ids of the items to be removed
      */
     protected void removeItems(List<Integer> itemIds){
-        dao.deleteItemsById(itemIds);
-        listViewAdapter.removeItemsById(itemIds);
+        try {
+            dao.deleteIds(itemIds);
+            listViewAdapter.removeItemsById(itemIds);
+        } catch (SQLException e) {
+            //TODO komunikat na maske do aktywnosci o bledzie
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -247,8 +267,13 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
      * @param item - item to be added
      */
     protected void addNewItem(AdapterItemClass item){
-        dao.createNew(item);
-        listViewAdapter.addItem(item);
+        try {
+            dao.create(item);
+            listViewAdapter.addItem(item);
+        } catch (SQLException e) {
+            //TODO komunikat na maske do aktywnosci o bledzie
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -257,8 +282,13 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
      */
     protected void updateItem(AdapterItemClass item){
         AdapterItemClass existingItem = listViewAdapter.getItemById(item.getId());
-        existingItem.merge(item);
-        dao.update(existingItem);
+        try {
+            dao.update(existingItem);
+            existingItem.merge(item);
+        } catch (SQLException e) {
+            //TODO komunikat na maske do aktywnosci o bledzie
+            e.printStackTrace();
+        }
     }
 
     @Override
