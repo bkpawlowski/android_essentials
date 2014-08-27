@@ -1,11 +1,8 @@
 package pl.pawlowski.bartek.supplib.persistence.utilities;
 
-import android.database.sqlite.SQLiteDatabase;
-
 import java.util.HashMap;
 
 import pl.pawlowski.bartek.supplib.persistence.DAO.AbstractDAO;
-import pl.pawlowski.bartek.supplib.persistence.DAO.old_AbstractDAO;
 import pl.pawlowski.bartek.supplib.persistence.DTO.AbstractEntity;
 
 

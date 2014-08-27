@@ -20,10 +20,8 @@ import java.util.List;
 
 import pl.pawlowski.bartek.supplib.R;
 import pl.pawlowski.bartek.supplib.persistence.DAO.AbstractDAO;
-import pl.pawlowski.bartek.supplib.persistence.DAO.old_AbstractDAO;
 import pl.pawlowski.bartek.supplib.persistence.DTO.AbstractEntity;
 import pl.pawlowski.bartek.supplib.persistence.utilities.DAOManager;
-import pl.pawlowski.bartek.supplib.persistence.utilities.old_DAOManager;
 import pl.pawlowski.bartek.supplib.persistence.utilities.PersistenceListViewAdapter;
 
 /**
