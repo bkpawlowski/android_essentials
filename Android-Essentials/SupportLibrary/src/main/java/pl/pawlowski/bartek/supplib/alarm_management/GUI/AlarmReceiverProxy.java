@@ -9,7 +9,7 @@ import pl.pawlowski.bartek.supplib.alarm_management.utilities.OnAlarmStateChange
 /**
  * TODO javadoc
  */
-public class AlarmReceiverForActivityProxy extends AbstractPausedActivityMessageHandler implements OnAlarmStateChangeListener {
+public class AlarmReceiverProxy extends AbstractPausedActivityMessageHandler implements OnAlarmStateChangeListener {
 
     /** Identifies id of the alarm in internal bundle packages*/
     private static final String ALARM_ID = "id";
@@ -29,7 +29,7 @@ public class AlarmReceiverForActivityProxy extends AbstractPausedActivityMessage
     /** Listener to be notified about alarm changes*/
     protected OnAlarmStateChangeListener alarmStateChangeListener;
 
-    public AlarmReceiverForActivityProxy(OnAlarmStateChangeListener listener){
+    public AlarmReceiverProxy(OnAlarmStateChangeListener listener){
         alarmStateChangeListener = listener;
     }
 

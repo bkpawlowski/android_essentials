@@ -19,7 +19,7 @@ public class AlarmStateChangeListenerFragment extends Fragment implements OnAlar
      * Every incoming events are queued inside this handler
      * to be handled by GUIUpdater when activity/fragment is eventually in resumed state.
      */
-    protected AlarmReceiverForActivityProxy alarmReceiverForActivityProxy;
+    protected AlarmReceiverProxy alarmReceiverProxy;
 
     private boolean backButtonHandlingLocked;
 
@@ -35,18 +35,18 @@ public class AlarmStateChangeListenerFragment extends Fragment implements OnAlar
 
     /**
      * @return
-     * instance of {@link AlarmReceiverForActivityProxy} that handles
+     * instance of {@link AlarmReceiverProxy} that handles
      * incoming notifications about alarms state changes and delivers it to another handlers
      */
-    protected AlarmReceiverForActivityProxy getAlarmReceiverForActivityProxy(){
-        return new AlarmReceiverForActivityProxy(this);
+    protected AlarmReceiverProxy getAlarmReceiverProxy(){
+        return new AlarmReceiverProxy(this);
     }
 
     /**
      * Default constructor
      */
     protected AlarmStateChangeListenerFragment(){
-        alarmReceiverForActivityProxy = getAlarmReceiverForActivityProxy();
+        alarmReceiverProxy = getAlarmReceiverProxy();
         backButtonHandlingLocked = false;
     }
 
@@ -85,9 +85,9 @@ public class AlarmStateChangeListenerFragment extends Fragment implements OnAlar
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(alarmReceiverForActivityProxy == null){
+        if(alarmReceiverProxy == null){
             AlarmController ac = AlarmController.getInstance(getActivity());
-            ac.addOnAlarmStateChangeListener(alarmReceiverForActivityProxy);
+            ac.addOnAlarmStateChangeListener(alarmReceiverProxy);
         }
     }
 
@@ -104,16 +104,16 @@ public class AlarmStateChangeListenerFragment extends Fragment implements OnAlar
     public void onResume() {
         super.onResume();
 
-        if(alarmReceiverForActivityProxy == null){
-            alarmReceiverForActivityProxy.onActivityResumed();
+        if(alarmReceiverProxy == null){
+            alarmReceiverProxy.onActivityResumed();
         }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if(alarmReceiverForActivityProxy == null){
-            alarmReceiverForActivityProxy.onActivityPaused();
+        if(alarmReceiverProxy == null){
+            alarmReceiverProxy.onActivityPaused();
         }
     }
 
@@ -121,9 +121,9 @@ public class AlarmStateChangeListenerFragment extends Fragment implements OnAlar
     public void onDestroy() {
         super.onDestroy();
 
-        if(alarmReceiverForActivityProxy == null){
+        if(alarmReceiverProxy == null){
             AlarmController ac = AlarmController.getInstance(getActivity());
-            ac.removeOnAlarmStateChangeListener(alarmReceiverForActivityProxy);
+            ac.removeOnAlarmStateChangeListener(alarmReceiverProxy);
         }
     }
 
