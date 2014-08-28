@@ -58,7 +58,7 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
         selectionModeEnabled = true;
     }
 
-    protected abstract Class<AbstractEntity> getEntityClass();
+    protected abstract Class<? extends AbstractEntity> getEntityClass();
 
     protected abstract PersistenceListViewAdapter getAdapter();
 

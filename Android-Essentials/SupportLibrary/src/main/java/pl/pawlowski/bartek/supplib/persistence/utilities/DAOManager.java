@@ -13,7 +13,7 @@ public class DAOManager {
 
     private static DAOManager instance;
 
-    private HashMap<Class<AbstractEntity>, AbstractDAO<? extends AbstractEntity, Integer>> registeredDAOs;
+    private HashMap<Class<? extends AbstractEntity>, AbstractDAO<? extends AbstractEntity, Integer>> registeredDAOs;
 
     public static DAOManager getInstance(){
         if(instance == null){
@@ -24,18 +24,18 @@ public class DAOManager {
     }
 
     private DAOManager(){
-        registeredDAOs = new HashMap<Class<AbstractEntity>, AbstractDAO<? extends AbstractEntity, Integer>>();
+        registeredDAOs = new HashMap<Class<? extends AbstractEntity>, AbstractDAO<? extends AbstractEntity, Integer>>();
     }
 
-    public AbstractDAO<? extends AbstractEntity, Integer> getDAO(Class<AbstractEntity> daoEntityClass){
+    public AbstractDAO<? extends AbstractEntity, Integer> getDAO(Class<? extends AbstractEntity> daoEntityClass){
         return registeredDAOs.get(daoEntityClass);
     }
 
-    public void registerDAO(Class<AbstractEntity> daoEntityClass, AbstractDAO<? extends AbstractEntity, Integer> dao){
+    public void registerDAO(Class<? extends AbstractEntity> daoEntityClass, AbstractDAO<? extends AbstractEntity, Integer> dao){
         registeredDAOs.put(daoEntityClass, dao);
     }
 
-    public void unregisterDAO(String daoIdentifier){
-        registeredDAOs.remove(daoIdentifier);
+    public void unregisterDAO(Class<? extends AbstractEntity> daoEntityClass){
+        registeredDAOs.remove(daoEntityClass);
     }
 }
