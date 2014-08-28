@@ -205,9 +205,9 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
         ActionBar actionBar = getActivity().getActionBar();
         if(selectionMode){
             actionBar.setCustomView(selectionActionBarView);
-//            actionBar.setDisplayOptions(getCustomActionBarDisplayOptions());
+            actionBar.setDisplayOptions(getCustomActionBarDisplayOptions());
         }else{
-//            actionBar.setDisplayOptions(getDefaultActionBarDisplayOptions());
+            actionBar.setDisplayOptions(getDefaultActionBarDisplayOptions());
         }
 
         //niewidoczne jesli jestesmy w trybie wybierania

@@ -85,15 +85,22 @@ public class SelectableListViewWithContextMenu extends SelectableListView implem
     protected boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){
         Context ctx = getContext();
         if(ctx instanceof FragmentActivity){
-            if(!contextMenu.isAdded()){
-                Bundle arguments = new Bundle();
-                Identifiable item = (Identifiable) getAdapter().getItem(position);
-                arguments.putInt(ContextMenuDialogFragment.ITEM_ID, item.getId());
-                contextMenu.setArguments(arguments);
+            if(contextMenuItems.size() > 0) {
+                if (!contextMenu.isAdded()) {
+                    Bundle arguments = new Bundle();
+                    Identifiable item = (Identifiable) getAdapter().getItem(position);
+                    arguments.putInt(ContextMenuDialogFragment.ITEM_ID, item.getId());
+                    contextMenu.setArguments(arguments);
 
-                contextMenu.show(((FragmentActivity) ctx).getSupportFragmentManager(), "contextMenu");
+                    contextMenu.show(((FragmentActivity) ctx).getSupportFragmentManager(), "contextMenu");
+                }else{
+                    Log.i(getClass().getSimpleName(), "ContextMenu already visible");
+                }
+            }else{
+                Log.i(getClass().getSimpleName(), "ContextMenuItems.size() = 0");
             }
         }else{
+            Log.e(getClass().getSimpleName(), "Activities different than FragmentActivity are not supported");
             throw new RuntimeException("THIS SHOULD BE USED INSIDE A FRAGMENT!");
         }
 
