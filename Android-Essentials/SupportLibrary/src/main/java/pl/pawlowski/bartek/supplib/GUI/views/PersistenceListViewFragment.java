@@ -12,12 +12,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import pl.pawlowski.bartek.supplib.GUI.ContextMenu.SelectableListViewWithContextMenu;
 import pl.pawlowski.bartek.supplib.R;
 import pl.pawlowski.bartek.supplib.persistence.DAO.AbstractDAO;
 import pl.pawlowski.bartek.supplib.persistence.DTO.AbstractEntity;
@@ -44,6 +46,8 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
 
     protected Class<? extends ItemEditorFragment> editorFragmentClass;
 
+    protected ListView listView;
+
     private View selectionActionBarView;
 
     private boolean selectionMode;
@@ -57,6 +61,8 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
         editorFragmentClass = getEditorFragmentClass();
         selectionModeEnabled = true;
     }
+
+    protected abstract ListView getListView(View view);
 
     protected abstract Class<? extends AbstractEntity> getEntityClass();
 
@@ -129,6 +135,7 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
         selectionActionBarView.findViewById(R.id.action_done).setOnClickListener(listener);
         selectionActionBarView.findViewById(R.id.action_cancel).setOnClickListener(listener);
         selectionActionBarView.findViewById(R.id.action_selectall).setOnClickListener(listener);
+
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -142,6 +149,14 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
                 List<Integer> selectedItems = savedInstanceState.getIntegerArrayList(SELECTED_ITEMS_KEY);
                 listViewAdapter.setItemsSelected(selectedItems);
             }
+        }
+
+        listView = getListView(view);
+        listView.setAdapter(listViewAdapter);
+
+        if(listView instanceof SelectableListViewWithContextMenu){
+            SelectableListViewWithContextMenu listViewWithContextMenu = (SelectableListViewWithContextMenu) listView;
+            listViewWithContextMenu.registerForItemSelectionContextMenu(this);
         }
     }
 
