@@ -40,13 +40,18 @@ public abstract class ActionBarMenuFragment extends AlarmStateChangeListenerFrag
         defaultActionBarDisplayOptions = getActivity().getActionBar().getDisplayOptions();
         customActionBarDisplayOptions = ActionBar.DISPLAY_SHOW_CUSTOM;
 
-        initialiseActionBar(getActivity().getActionBar());
-
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        initialiseActionBar(getActivity().getActionBar());
+    }
+
     /**
-     * Initialises actionbar settings in onCreateView method
+     * Initialises actionbar settings in onCreateView method. Its called withing onResume callback body
      * @param actionBar - actionbar to be initialised
      */
     public abstract void initialiseActionBar(ActionBar actionBar);
