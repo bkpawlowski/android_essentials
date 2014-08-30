@@ -46,8 +46,16 @@ public abstract class ActionBarMenuFragment<ItemClass> extends AlarmStateChangeL
         defaultActionBarDisplayOptions = getActivity().getActionBar().getDisplayOptions();
         customActionBarDisplayOptions = ActionBar.DISPLAY_SHOW_CUSTOM;
 
+        initialiseActionBar(getActivity().getActionBar());
+
         return super.onCreateView(inflater, container, savedInstanceState);
     }
+
+    /**
+     * Initialises actionbar settings in onCreateView method
+     * @param actionBar - actionbar to be initialised
+     */
+    public abstract void initialiseActionBar(ActionBar actionBar);
 
     /**
      * Sets menu items visible
