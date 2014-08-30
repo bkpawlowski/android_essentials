@@ -12,13 +12,13 @@ import pl.pawlowski.bartek.supplib.persistence.DTO.AbstractEntity;
 /**
  * Created by Bartosz Garet Pawlowski on 24.03.14.
  */
-public abstract class ItemEditorFragment<AdapterItemClass extends AbstractEntity> extends ActionBarMenuFragment {
+public abstract class ItemEditorListFragment<AdapterItemClass extends AbstractEntity> extends ActionBarMenuListFragment {
 
     public static final String PASSED_ITEM_KEY = "-2547-x";
 
     private static final String OVRSL_TAG_KEY = "2547-x";
 
-    protected ActionBarMenuFragment onViewResultSubmittedListener;
+    protected ActionBarMenuListFragment onViewResultSubmittedListener;
 
     protected Integer adapterItemId;
 
@@ -37,7 +37,7 @@ public abstract class ItemEditorFragment<AdapterItemClass extends AbstractEntity
         }else{
             String fragmentTag = savedInstanceState.getString(OVRSL_TAG_KEY);
             FragmentManager fm = getActivity().getSupportFragmentManager();
-            onViewResultSubmittedListener = (ActionBarMenuFragment) fm.findFragmentByTag(fragmentTag);
+            onViewResultSubmittedListener = (ActionBarMenuListFragment) fm.findFragmentByTag(fragmentTag);
         }
 
         super.onActivityCreated(savedInstanceState);
@@ -54,7 +54,7 @@ public abstract class ItemEditorFragment<AdapterItemClass extends AbstractEntity
         super.onSaveInstanceState(outState);
     }
 
-    public void setOnViewResultSubmittedListener(ActionBarMenuFragment listener){
+    public void setOnViewResultSubmittedListener(ActionBarMenuListFragment listener){
         this.onViewResultSubmittedListener = listener;
     }
 

@@ -33,18 +33,18 @@ import pl.pawlowski.bartek.supplib.persistence.utilities.PersistenceListViewAdap
  * handles default actions on listview items
  *
  */
-public abstract class PersistenceListViewFragment<AdapterItemClass extends AbstractEntity> extends ActionBarMenuFragment<AdapterItemClass> {
+public abstract class PersistenceListViewListFragment<AdapterItemClass extends AbstractEntity> extends ActionBarMenuListFragment<AdapterItemClass> {
     private static final String EDITOR_FRAGMENT_TAG = "111--x-23423-ed-fragment-tag";
     private static final String SELECTION_MODE_KEY = "--ssk";
     private static final String SELECTED_ITEMS_KEY = "i--ssk";
 
     protected PersistenceListViewAdapter<AdapterItemClass> listViewAdapter;
 
-    protected ItemEditorFragment itemEditorFragment;
+    protected ItemEditorListFragment itemEditorFragment;
 
     protected AbstractDAO<AdapterItemClass, Integer> dao;
 
-    protected Class<? extends ItemEditorFragment> editorFragmentClass;
+    protected Class<? extends ItemEditorListFragment> editorFragmentClass;
 
     protected ListView listView;
 
@@ -54,7 +54,7 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
 
     private boolean selectionModeEnabled;
 
-    protected PersistenceListViewFragment(){
+    protected PersistenceListViewListFragment(){
         dao = (AbstractDAO<AdapterItemClass, Integer>) DAOManager.getInstance().getDAO(getEntityClass());
         listViewAdapter = getAdapter();
         listViewAdapter.setItemList(getRecordsFromDatabase());
@@ -68,7 +68,7 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
 
     protected abstract PersistenceListViewAdapter getAdapter();
 
-    protected abstract Class<? extends ItemEditorFragment> getEditorFragmentClass();
+    protected abstract Class<? extends ItemEditorListFragment> getEditorFragmentClass();
 
     /**
      * @return
@@ -339,7 +339,7 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
                     e.printStackTrace();
                 }
             } else {
-                itemEditorFragment = (ItemEditorFragment) f;
+                itemEditorFragment = (ItemEditorListFragment) f;
                 itemEditorFragment.setOnViewResultSubmittedListener(this);
             }
 
@@ -348,7 +348,7 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
                 Bundle arguments = null;
                 if (item != null) {
                     arguments = new Bundle();
-                    arguments.putParcelable(ItemEditorFragment.PASSED_ITEM_KEY, item);
+                    arguments.putParcelable(ItemEditorListFragment.PASSED_ITEM_KEY, item);
                 }
                 //przekazanie Itemu do fragmentus(arguments);
                 itemEditorFragment.setArguments(arguments);

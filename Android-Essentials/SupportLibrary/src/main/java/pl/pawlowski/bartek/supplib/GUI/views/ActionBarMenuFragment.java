@@ -9,18 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
-import pl.pawlowski.bartek.supplib.GUI.ContextMenu.ContextMenuItem;
-import pl.pawlowski.bartek.supplib.GUI.ContextMenu.ContextMenuProvider;
 import pl.pawlowski.bartek.supplib.alarm_management.GUI.AlarmStateChangeListenerFragment;
 
 /**
- * Created by Bartosz Garet Pawlowski on 26.03.14.
+ * Created by Bartek Garet Pawlowski on 2014-08-30.
  */
-public abstract class ActionBarMenuFragment<ItemClass> extends AlarmStateChangeListenerFragment
-        implements OnViewResultSubmittedListener<ItemClass>, ContextMenuProvider {
-
+public abstract class ActionBarMenuFragment extends AlarmStateChangeListenerFragment {
     /**
      * OptionsMenu
      */
@@ -77,21 +71,6 @@ public abstract class ActionBarMenuFragment<ItemClass> extends AlarmStateChangeL
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         this.actionBarOptionsMenu = menu;
-    }
-
-    @Override
-    public List<ContextMenuItem> getContextMenuItems() {
-        return null;
-    }
-
-    @Override
-    public void onContextMenuItemSelected(Integer contextMenuId, Integer itemId) {
-
-    }
-
-    @Override
-    public void onItemSubmitted(ItemClass submittedItem) {
-
     }
 
     @Override
