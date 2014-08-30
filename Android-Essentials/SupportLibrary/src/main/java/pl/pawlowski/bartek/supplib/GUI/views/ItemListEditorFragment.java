@@ -12,7 +12,7 @@ import pl.pawlowski.bartek.supplib.persistence.DTO.AbstractEntity;
 /**
  * Created by Bartosz Garet Pawlowski on 24.03.14.
  */
-public abstract class ItemEditorListFragment<AdapterItemClass extends AbstractEntity> extends ActionBarMenuListFragment {
+public abstract class ItemListEditorFragment<AdapterItemClass extends AbstractEntity> extends ActionBarMenuListFragment {
 
     public static final String PASSED_ITEM_KEY = "-2547-x";
 

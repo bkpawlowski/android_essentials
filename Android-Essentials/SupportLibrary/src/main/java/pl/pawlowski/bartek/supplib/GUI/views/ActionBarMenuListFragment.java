@@ -12,7 +12,7 @@ public abstract class ActionBarMenuListFragment<ItemClass> extends ActionBarMenu
         implements OnViewResultSubmittedListener<ItemClass>, ContextMenuProvider {
 
     protected ActionBarMenuListFragment() {
-        
+
     }
 
     @Override
