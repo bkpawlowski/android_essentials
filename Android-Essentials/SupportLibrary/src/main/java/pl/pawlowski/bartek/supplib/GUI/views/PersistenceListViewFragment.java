@@ -296,8 +296,8 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
     protected void updateItem(AdapterItemClass item){
         AdapterItemClass existingItem = listViewAdapter.getItemById(item.getId());
         try {
-            dao.update(existingItem);
             existingItem.merge(item);
+            dao.update(existingItem);
         } catch (SQLException e) {
             //TODO komunikat na maske do aktywnosci o bledzie
             e.printStackTrace();
