@@ -45,7 +45,7 @@ public class AlarmStateChangeListenerFragment extends Fragment implements OnAlar
     /**
      * Default constructor
      */
-    protected AlarmStateChangeListenerFragment(){
+    public AlarmStateChangeListenerFragment(){
         alarmReceiverProxy = getAlarmReceiverProxy();
         backButtonHandlingLocked = false;
     }
@@ -144,11 +144,17 @@ public class AlarmStateChangeListenerFragment extends Fragment implements OnAlar
 
     /**
      * Called when back button has been just pressed by the user
+     * @return
+     *  true if an event should be consumed by activity, false otherwise
      */
-    protected void onBackButtonPressed(){
+    protected boolean onBackButtonPressed(){
         if(fragmentManager.getBackStackEntryCount() > 0) {
             fragmentManager.popBackStack();
+
+            return false;
         }
+
+        return true;
     }
 
     /**
@@ -173,15 +179,17 @@ public class AlarmStateChangeListenerFragment extends Fragment implements OnAlar
                 return true;
             }
 
+            boolean consumeEvent_ = true;
             if (keyCode == KeyEvent.KEYCODE_BACK) {
-                f.onBackButtonPressed();
+                consumeEvent_ = f.onBackButtonPressed();
             }
 
             final boolean consumeEvent = AlarmStateChangeListenerFragment.this.isBackButtonHandlingLocked();
 
-            if(!consumeEvent) {
+            if(!consumeEvent && consumeEvent_) {
                 getActivity().onBackPressed();
             }
+
 
             return consumeEvent;
         }

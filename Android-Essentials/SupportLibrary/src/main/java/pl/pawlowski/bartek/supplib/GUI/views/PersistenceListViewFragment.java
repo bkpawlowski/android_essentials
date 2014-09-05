@@ -224,11 +224,12 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
     }
 
     @Override
-    protected void onBackButtonPressed() {
+    protected boolean onBackButtonPressed() {
         if(selectionMode){
             setSelectionMode(false);
+            return false;
         }else{
-            super.onBackButtonPressed();
+            return super.onBackButtonPressed();
         }
     }
 
@@ -319,12 +320,18 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
     protected void showCreateNewItemFragment(){
         showItemEditorFragment(null);
     }
+    protected void showItemEditorFragment(AdapterItemClass item){
+        showItemEditorFragment(item, true);
+    }
 
+    protected void showItemPreviewFragment(AdapterItemClass item){
+        showItemEditorFragment(item, false);
+    }
     /**
      * Shows fragment for editing item purposes
      * @param item - item to be edited
      */
-    protected void showItemEditorFragment(AdapterItemClass item){
+    protected void showItemEditorFragment(AdapterItemClass item, boolean editorMode){
         if(editorFragmentClass == null){
             Toast.makeText(getActivity(), "EditorFragment Class NULL!", Toast.LENGTH_SHORT).show(); //TODO wyjebac
         }else {
@@ -349,6 +356,7 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
                 if (item != null) {
                     arguments = new Bundle();
                     arguments.putParcelable(ItemListEditorFragment.PASSED_ITEM_KEY, item);
+                    arguments.putBoolean(ItemListEditorFragment.VIEW_MODE_KEY, editorMode);
                 }
                 //przekazanie Itemu do fragmentus(arguments);
                 itemEditorFragment.setArguments(arguments);

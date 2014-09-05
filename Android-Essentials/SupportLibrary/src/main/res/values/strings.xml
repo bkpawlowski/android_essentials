@@ -2,6 +2,7 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="done">Done</string>
+    <string name="edit">Edit</string>
     <string name="selectall">Select all</string>
 
     <!-- listview menu -->
