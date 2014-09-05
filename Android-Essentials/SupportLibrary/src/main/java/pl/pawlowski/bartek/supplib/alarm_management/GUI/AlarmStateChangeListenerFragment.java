@@ -14,6 +14,9 @@ import pl.pawlowski.bartek.supplib.alarm_management.utilities.OnAlarmStateChange
 
 public class AlarmStateChangeListenerFragment extends Fragment implements OnAlarmStateChangeListener{
 
+    /** Klucz odpowiedzialny za zapisanie stanu blokady obslugi przycisku back przez aktywnosc*/
+    private static final String BACK_BUTTON_HANDLING_KEY = "23u74y6423fn";
+
     /**
      * Used when activity/fragment is in paused state.
      * Every incoming events are queued inside this handler
@@ -47,7 +50,6 @@ public class AlarmStateChangeListenerFragment extends Fragment implements OnAlar
      */
     public AlarmStateChangeListenerFragment(){
         alarmReceiverProxy = getAlarmReceiverProxy();
-        backButtonHandlingLocked = false;
     }
 
     @Override
@@ -89,6 +91,19 @@ public class AlarmStateChangeListenerFragment extends Fragment implements OnAlar
             AlarmController ac = AlarmController.getInstance(getActivity());
             ac.addOnAlarmStateChangeListener(alarmReceiverProxy);
         }
+
+        if(savedInstanceState != null){
+            backButtonHandlingLocked = savedInstanceState.getBoolean(BACK_BUTTON_HANDLING_KEY, false);
+        }else{
+            backButtonHandlingLocked = false;
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putBoolean(BACK_BUTTON_HANDLING_KEY, backButtonHandlingLocked);
     }
 
     @Override
