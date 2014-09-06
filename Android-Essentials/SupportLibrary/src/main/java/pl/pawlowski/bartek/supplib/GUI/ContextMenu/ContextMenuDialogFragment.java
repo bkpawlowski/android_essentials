@@ -37,6 +37,47 @@ public class ContextMenuDialogFragment extends DialogFragment {
 
     private List<OnContextMenuItemSelectedListener> menuItemSelectedListeners;
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        Toast.makeText(getActivity(), "onCreateView", Toast.LENGTH_SHORT).show();
+        View view = inflater.inflate(R.layout.contextmenu_popup_window, null);
+        ListView listView = (ListView) view.findViewById(R.id.CTXM_ListView);
+
+        if(savedInstanceState == null) {
+            Bundle arguments = getArguments();
+            if(arguments != null){
+                itemId = arguments.getInt(ITEM_ID);
+            }
+            if(items == null){
+                items = new ArrayList<ContextMenuItem>();
+            }
+        }else{
+            items = savedInstanceState.getParcelableArrayList(CONTEXT_MENU_ITEMS);
+            itemId = savedInstanceState.getInt(ITEM_ID, -1);
+        }
+
+        BaseAdapter adapter = new ContextMenuListViewAdapter(getActivity(), items);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ContextMenuItem selectedItem = items.get(position);
+
+                for(OnContextMenuItemSelectedListener listener : menuItemSelectedListeners){
+                    listener.onContextMenuItemSelected(position, itemId);
+                }
+                ContextMenuDialogFragment.this.dismiss();
+            }
+        });
+
+        return view;
+    }
+
+    public void setItems(ArrayList<ContextMenuItem> items) {
+        this.items = items;
+    }
+
     public void addOnMenuItemSelectedListener(OnContextMenuItemSelectedListener listener){
         if(listener != null){
             menuItemSelectedListeners.add(listener);
@@ -54,45 +95,6 @@ public class ContextMenuDialogFragment extends DialogFragment {
         items = getContextMenuItems();
         menuItemSelectedListeners = new LinkedList<OnContextMenuItemSelectedListener>();
     }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        Toast.makeText(getActivity(), "onCreateView", Toast.LENGTH_SHORT).show();
-        View view = inflater.inflate(R.layout.contextmenu_popup_window, null);
-        ListView listView = (ListView) view.findViewById(R.id.CTXM_ListView);
-
-        List<ContextMenuItem> localItems;
-        if(savedInstanceState == null) {
-            Bundle arguments = getArguments();
-            if(arguments != null){
-                itemId = arguments.getInt(ITEM_ID);
-            }
-
-            localItems = items;
-        }else{
-            localItems = savedInstanceState.getParcelableArrayList(CONTEXT_MENU_ITEMS);
-            itemId = savedInstanceState.getInt(ITEM_ID, -1);
-        }
-
-        BaseAdapter adapter = new ContextMenuListViewAdapter(getActivity(), localItems);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ContextMenuItem selectedItem = items.get(position);
-
-                for(OnContextMenuItemSelectedListener listener : menuItemSelectedListeners){
-                    listener.onContextMenuItemSelected(position, itemId);
-                }
-                ContextMenuDialogFragment.this.dismiss();
-            }
-        });
-
-        return view;
-    }
-
-
 
     protected ArrayList<ContextMenuItem> getContextMenuItems(){
         return new ArrayList<ContextMenuItem>();

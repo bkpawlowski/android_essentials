@@ -127,12 +127,8 @@ public class SelectableListViewWithContextMenu extends SelectableListView implem
             if(contextMenuItems == null){
                 contextMenuItems = new ArrayList<ContextMenuItem>();
             }
-            contextMenu = new ContextMenuDialogFragment() {
-                @Override
-                protected ArrayList<ContextMenuItem> getContextMenuItems() {
-                    return contextMenuItems;
-                }
-            };
+            contextMenu = new ContextMenuDialogFragment();
+            contextMenu.setItems(contextMenuItems);
 
             contextMenu.addOnMenuItemSelectedListener(this);
             contextMenu.addOnMenuItemSelectedListener(contextMenuProvider);
