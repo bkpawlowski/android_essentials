@@ -4,6 +4,7 @@
     <string name="done">Done</string>
     <string name="edit">Edit</string>
     <string name="selectall">Select all</string>
+    <string name="all">All</string>
 
     <!-- listview menu -->
     <string name="default_lv_menu_remove">Remove ...</string>
