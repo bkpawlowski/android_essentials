@@ -36,7 +36,7 @@ public class ContextMenuListViewAdapter extends SimpleListViewAdapter<ContextMen
 
     @Override
     public void updateView(SimpleListViewItemViewHolder viewHolder, ContextMenuItem item) {
-        viewHolder.imageView.setImageResource(item.itemImageView);
-        viewHolder.textView.setText(item.itemTextView);
+        viewHolder.imageView.setImageResource(item.itemImageViewId);
+        viewHolder.textView.setText(item.itemTextViewId);
     }
 }

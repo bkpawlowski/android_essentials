@@ -1,5 +1,6 @@
 package pl.pawlowski.bartek.supplib.GUI.views;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import pl.pawlowski.bartek.supplib.GUI.ContextMenu.ContextMenuItem;
@@ -16,7 +17,7 @@ public abstract class ActionBarMenuListFragment<ItemClass> extends ActionBarMenu
     }
 
     @Override
-    public List<ContextMenuItem> getContextMenuItems() {
+    public ArrayList<ContextMenuItem> getContextMenuItems() {
         return null;
     }
 

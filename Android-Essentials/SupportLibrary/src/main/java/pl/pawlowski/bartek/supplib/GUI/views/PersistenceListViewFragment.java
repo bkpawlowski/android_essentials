@@ -113,7 +113,7 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        selectionActionBarView = inflater.inflate(R.layout.confirm_actionbar_layout, null);
+        selectionActionBarView = inflater.inflate(R.layout.selection_mode_actionbar_layout, null);
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override

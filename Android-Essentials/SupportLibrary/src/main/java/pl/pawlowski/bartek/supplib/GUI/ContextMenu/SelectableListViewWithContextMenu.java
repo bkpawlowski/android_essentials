@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class SelectableListViewWithContextMenu extends SelectableListView implem
 
     protected ContextMenuDialogFragment contextMenu;
 
-    private List<ContextMenuItem> contextMenuItems;
+    private ArrayList<ContextMenuItem> contextMenuItems;
 
     public SelectableListViewWithContextMenu(Context context) {
         super(context);
@@ -61,7 +62,7 @@ public class SelectableListViewWithContextMenu extends SelectableListView implem
         });
     }
 
-    public void setContextMenuItems(List<ContextMenuItem> contextMenuItems){
+    public void setContextMenuItems(ArrayList<ContextMenuItem> contextMenuItems){
         this.contextMenuItems = contextMenuItems;
     }
 
@@ -124,11 +125,11 @@ public class SelectableListViewWithContextMenu extends SelectableListView implem
         }else {
             contextMenuItems = contextMenuProvider.getContextMenuItems();
             if(contextMenuItems == null){
-                contextMenuItems = new LinkedList<ContextMenuItem>();
+                contextMenuItems = new ArrayList<ContextMenuItem>();
             }
             contextMenu = new ContextMenuDialogFragment() {
                 @Override
-                protected List<ContextMenuItem> getContextMenuItems() {
+                protected ArrayList<ContextMenuItem> getContextMenuItems() {
                     return contextMenuItems;
                 }
             };
