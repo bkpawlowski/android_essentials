@@ -40,11 +40,11 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
 
     protected PersistenceListViewAdapter<AdapterItemClass> listViewAdapter;
 
-    protected ItemListEditorFragment itemEditorFragment;
+    protected ItemListPreviewFragment itemEditorFragment;
 
     protected AbstractDAO<AdapterItemClass, Integer> dao;
 
-    protected Class<? extends ItemListEditorFragment> editorFragmentClass;
+    protected Class<? extends ItemListPreviewFragment> editorFragmentClass;
 
     protected ListView listView;
 
@@ -68,7 +68,7 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
 
     protected abstract PersistenceListViewAdapter getAdapter();
 
-    protected abstract Class<? extends ItemListEditorFragment> getEditorFragmentClass();
+    protected abstract Class<? extends ItemListPreviewFragment> getEditorFragmentClass();
 
     /**
      * @return
@@ -346,7 +346,7 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
                     e.printStackTrace();
                 }
             } else {
-                itemEditorFragment = (ItemListEditorFragment) f;
+                itemEditorFragment = (ItemListPreviewFragment) f;
                 itemEditorFragment.setOnViewResultSubmittedListener(this);
             }
 
@@ -355,13 +355,14 @@ public abstract class PersistenceListViewFragment<AdapterItemClass extends Abstr
                 Bundle arguments = null;
                 if (item != null) {
                     arguments = new Bundle();
-                    arguments.putParcelable(ItemListEditorFragment.PASSED_ITEM_KEY, item);
-                    arguments.putBoolean(ItemListEditorFragment.VIEW_MODE_KEY, editorMode);
+                    arguments.putParcelable(ItemListPreviewFragment.PASSED_ITEM_KEY, item);
+                    arguments.putBoolean(ItemListPreviewFragment.VIEW_MODE_KEY, editorMode);
                 }
                 //przekazanie Itemu do fragmentus(arguments);
                 itemEditorFragment.setArguments(arguments);
 
                 int containerId = getFragmentHookContainerId();
+                ft.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out, R.anim.abc_fade_in, R.anim.abc_fade_out);
                 ft.replace(containerId, itemEditorFragment, EDITOR_FRAGMENT_TAG);
 //                ft.add(containerId, itemEditorFragment, EDITOR_FRAGMENT_TAG);
                 ft.addToBackStack(null);

@@ -5,4 +5,12 @@
         android:icon="@drawable/ic_action_edit"
         android:title="@string/edit"
         android:showAsAction="always|withText" />
+    <item android:id="@+id/ief_done"
+        android:icon="@drawable/ic_action_accept"
+        android:title="@string/done"
+        android:showAsAction="always|withText" />
+    <item android:id="@+id/ief_cancel_edit"
+        android:icon="@drawable/ic_action_cancel"
+        android:title="@string/edit"
+        android:showAsAction="always|withText" />
 </menu>
