@@ -163,6 +163,8 @@ public abstract class ItemListPreviewFragment<AdapterItemClass extends AbstractE
         }else if(R.id.ief_edit == item.getItemId()){
             setEditorViewMode(true);
         }else if(R.id.ief_cancel_edit == item.getItemId()){
+            //odtworzenie widokug
+            fillViewsFromDTO(adapterItem);
             boolean detachFragment = detachWhenDone();
             //odpiecie fragmentu
             if(detachFragment) {
